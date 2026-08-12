@@ -69,9 +69,7 @@ export function Sidebar({
             <p className="text-sm font-medium text-white truncate">
               {user.name}
             </p>
-            <p className="text-xs text-slate-400 capitalize">
-              Jogador
-            </p>
+            <p className="text-xs text-slate-400 capitalize">Jogador</p>
           </div>
         </div>
       )}

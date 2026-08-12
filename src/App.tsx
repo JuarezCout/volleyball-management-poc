@@ -19,9 +19,7 @@ function AppRoutes() {
     <Routes>
       <Route
         path="/"
-        element={
-          user ? <Navigate to="/player" replace /> : <LoginPage />
-        }
+        element={user ? <Navigate to="/player" replace /> : <LoginPage />}
       />
 
       {/* Player */}
@@ -54,7 +52,6 @@ function AppRoutes() {
     </Routes>
   );
 }
-
 
 export function App() {
   return (
