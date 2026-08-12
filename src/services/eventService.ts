@@ -61,7 +61,7 @@ export const eventService = {
   },
 
   create(
-    data: Omit<Event, "id" | "createdAt" | "registrations" | "teamIds">,
+    data: Omit<Event, "id" | "createdAt" | "registrations" | "teamIds" | "courts" | "timeline">,
   ): Event {
     const newEvent: Event = {
       ...data,
@@ -69,6 +69,8 @@ export const eventService = {
       createdAt: new Date().toISOString(),
       registrations: [],
       teamIds: [],
+      courts: [],
+      timeline: [],
     };
     eventsStore = [...eventsStore, newEvent];
     return newEvent;
