@@ -1,0 +1,370 @@
+import type { Event, Registration } from "@/types";
+
+// Today = 2026-08-12
+const today = "2026-08-12";
+const tomorrow = "2026-08-13";
+const dayAfter = "2026-08-14";
+const nextSaturday = "2026-08-15";
+const nextWeek = "2026-08-18";
+
+const makeRegistrations = (
+  eventId: string,
+  confirmed: { userId: string; teamId?: string }[],
+  waitlist: { userId: string }[] = [],
+  backups: { userId: string; teamId?: string }[] = [],
+): Registration[] => {
+  const regs: Registration[] = [];
+  let pos = 1;
+
+  confirmed.forEach(({ userId, teamId }) => {
+    regs.push({
+      id: `reg-${eventId}-${userId}`,
+      eventId,
+      userId,
+      status: "confirmed",
+      paymentStatus: "paid",
+      registeredAt: "2026-08-10T10:00:00",
+      teamId,
+      position: pos++,
+    });
+  });
+
+  backups.forEach(({ userId, teamId }) => {
+    regs.push({
+      id: `reg-${eventId}-${userId}`,
+      eventId,
+      userId,
+      status: "backup",
+      paymentStatus: "paid",
+      registeredAt: "2026-08-10T10:05:00",
+      teamId,
+      position: pos++,
+    });
+  });
+
+  waitlist.forEach(({ userId }) => {
+    regs.push({
+      id: `reg-${eventId}-${userId}`,
+      eventId,
+      userId,
+      status: "waitlist",
+      paymentStatus: "pending",
+      registeredAt: "2026-08-11T09:00:00",
+      position: pos++,
+    });
+  });
+
+  return regs;
+};
+
+export const mockEvents: Event[] = [
+  // ── Main demo event: Terça 20:00 ──────────────────────────────────────────
+  {
+    id: "e1",
+    name: "Terça-feira — 20:00",
+    groupId: "g2",
+    date: today,
+    time: "20:00",
+    duration: 120,
+    location: "Clube Central — Court 1",
+    price: 8,
+    playersPerTeam: 6,
+    backupsPerTeam: 2,
+    teamCount: 2,
+    totalSlots: 16,
+    status: "open",
+    captainIds: ["u1"],
+    teamIds: ["t1", "t2"],
+    createdAt: "2026-08-08T09:00:00",
+    registrations: makeRegistrations(
+      "e1",
+      [
+        { userId: "u1", teamId: "t1" },
+        { userId: "u2", teamId: "t1" },
+        { userId: "u3", teamId: "t1" },
+        { userId: "u4", teamId: "t1" },
+        { userId: "u9", teamId: "t1" },
+        { userId: "u11", teamId: "t1" },
+        { userId: "u13", teamId: "t2" },
+        { userId: "u15", teamId: "t2" },
+        { userId: "u17", teamId: "t2" },
+        { userId: "u19", teamId: "t2" },
+      ],
+      [{ userId: "u5" }, { userId: "u23" }, { userId: "u27" }],
+      [
+        { userId: "u7", teamId: "t1" },
+        { userId: "u21", teamId: "t1" },
+        { userId: "u25", teamId: "t2" },
+        { userId: "u29", teamId: "t2" },
+      ],
+    ),
+  },
+
+  // ── Terça 22:00 ──────────────────────────────────────────────────────────
+  {
+    id: "e2",
+    name: "Terça-feira — 22:00",
+    groupId: "g2",
+    date: today,
+    time: "22:00",
+    duration: 90,
+    location: "Clube Central — Court 2",
+    price: 8,
+    playersPerTeam: 6,
+    backupsPerTeam: 2,
+    teamCount: 2,
+    totalSlots: 16,
+    status: "open",
+    captainIds: ["u17"],
+    teamIds: ["t3", "t4"],
+    createdAt: "2026-08-08T09:00:00",
+    registrations: makeRegistrations("e2", [
+      { userId: "u17", teamId: "t3" },
+      { userId: "u23", teamId: "t3" },
+      { userId: "u27", teamId: "t3" },
+      { userId: "u13", teamId: "t3" },
+      { userId: "u15", teamId: "t3" },
+      { userId: "u29", teamId: "t3" },
+      { userId: "u19", teamId: "t4" },
+      { userId: "u21", teamId: "t4" },
+    ]),
+  },
+
+  // ── Segunda 18:00 ─────────────────────────────────────────────────────────
+  {
+    id: "e3",
+    name: "Segunda-feira — 18:00",
+    groupId: "g1",
+    date: today,
+    time: "18:00",
+    duration: 90,
+    location: "Pavilhão Norte — Court A",
+    price: 6,
+    playersPerTeam: 6,
+    backupsPerTeam: 1,
+    teamCount: 2,
+    totalSlots: 14,
+    status: "full",
+    captainIds: ["u10"],
+    teamIds: ["t5", "t6"],
+    createdAt: "2026-08-07T10:00:00",
+    registrations: makeRegistrations(
+      "e3",
+      [
+        { userId: "u10", teamId: "t5" },
+        { userId: "u16", teamId: "t5" },
+        { userId: "u26", teamId: "t5" },
+        { userId: "u3", teamId: "t5" },
+        { userId: "u8", teamId: "t5" },
+        { userId: "u20", teamId: "t5" },
+        { userId: "u22", teamId: "t6" },
+        { userId: "u6", teamId: "t6" },
+        { userId: "u14", teamId: "t6" },
+        { userId: "u24", teamId: "t6" },
+        { userId: "u5", teamId: "t6" },
+        { userId: "u30", teamId: "t6" },
+      ],
+      [{ userId: "u11" }, { userId: "u25" }],
+      [
+        { userId: "u7", teamId: "t5" },
+        { userId: "u9", teamId: "t6" },
+      ],
+    ),
+  },
+
+  // ── Quarta 19:00 ─────────────────────────────────────────────────────────
+  {
+    id: "e4",
+    name: "Quarta-feira — 19:00",
+    groupId: "g3",
+    date: tomorrow,
+    time: "19:00",
+    duration: 120,
+    location: "Clube Central — Court 1",
+    price: 8,
+    playersPerTeam: 6,
+    backupsPerTeam: 2,
+    teamCount: 2,
+    totalSlots: 16,
+    status: "open",
+    captainIds: ["u12"],
+    teamIds: [],
+    createdAt: "2026-08-09T10:00:00",
+    registrations: makeRegistrations("e4", [
+      { userId: "u12" },
+      { userId: "u18" },
+      { userId: "u28" },
+      { userId: "u6" },
+      { userId: "u8" },
+      { userId: "u24" },
+      { userId: "u14" },
+      { userId: "u20" },
+      { userId: "u30" },
+      { userId: "u22" },
+      { userId: "u16" },
+    ]),
+  },
+
+  // ── Quinta 20:00 ─────────────────────────────────────────────────────────
+  {
+    id: "e5",
+    name: "Quinta-feira — 20:00",
+    groupId: "g4",
+    date: dayAfter,
+    time: "20:00",
+    duration: 120,
+    location: "Pavilhão Sul — Court B",
+    price: 8,
+    playersPerTeam: 6,
+    backupsPerTeam: 2,
+    teamCount: 2,
+    totalSlots: 16,
+    status: "open",
+    captainIds: ["u13"],
+    teamIds: [],
+    createdAt: "2026-08-10T11:00:00",
+    registrations: makeRegistrations("e5", [
+      { userId: "u13" },
+      { userId: "u22" },
+      { userId: "u30" },
+      { userId: "u25" },
+    ]),
+  },
+
+  // ── Feminino Inicial ──────────────────────────────────────────────────────
+  {
+    id: "e6",
+    name: "Feminino Inicial — Treino",
+    groupId: "g5",
+    date: tomorrow,
+    time: "18:00",
+    duration: 90,
+    location: "Clube Central — Court 3",
+    price: 5,
+    playersPerTeam: 6,
+    backupsPerTeam: 1,
+    teamCount: 2,
+    totalSlots: 14,
+    status: "open",
+    captainIds: ["u8"],
+    teamIds: [],
+    createdAt: "2026-08-10T12:00:00",
+    registrations: makeRegistrations("e6", [
+      { userId: "u3" },
+      { userId: "u5" },
+      { userId: "u6" },
+      { userId: "u8" },
+      { userId: "u10" },
+      { userId: "u14" },
+      { userId: "u16" },
+      { userId: "u20" },
+      { userId: "u22" },
+      { userId: "u26" },
+    ]),
+  },
+
+  // ── Feminino Avançado ─────────────────────────────────────────────────────
+  {
+    id: "e7",
+    name: "Feminino Avançado — Jogo",
+    groupId: "g6",
+    date: nextSaturday,
+    time: "10:00",
+    duration: 120,
+    location: "Pavilhão Norte — Court Principal",
+    price: 10,
+    playersPerTeam: 6,
+    backupsPerTeam: 2,
+    teamCount: 2,
+    totalSlots: 16,
+    status: "open",
+    captainIds: ["u12"],
+    teamIds: [],
+    createdAt: "2026-08-10T13:00:00",
+    registrations: makeRegistrations("e7", [
+      { userId: "u6" },
+      { userId: "u8" },
+      { userId: "u12" },
+      { userId: "u18" },
+      { userId: "u24" },
+    ]),
+  },
+
+  // ── Masculino Avançado ────────────────────────────────────────────────────
+  {
+    id: "e8",
+    name: "Masculino Avançado — Jogo",
+    groupId: "g8",
+    date: nextSaturday,
+    time: "14:00",
+    duration: 120,
+    location: "Clube Central — Court 1",
+    price: 10,
+    playersPerTeam: 6,
+    backupsPerTeam: 2,
+    teamCount: 2,
+    totalSlots: 16,
+    status: "open",
+    captainIds: ["u13"],
+    teamIds: [],
+    createdAt: "2026-08-11T09:00:00",
+    registrations: makeRegistrations("e8", [
+      { userId: "u13" },
+      { userId: "u15" },
+      { userId: "u21" },
+      { userId: "u25" },
+      { userId: "u27" },
+    ]),
+  },
+
+  // ── Recreativo Sábado ─────────────────────────────────────────────────────
+  {
+    id: "e9",
+    name: "Recreativo — Tarde",
+    groupId: "g9",
+    date: nextSaturday,
+    time: "16:00",
+    duration: 120,
+    location: "Parque Municipal — Court Exterior",
+    price: 4,
+    playersPerTeam: 6,
+    backupsPerTeam: 2,
+    teamCount: 3,
+    totalSlots: 24,
+    status: "open",
+    captainIds: ["u9"],
+    teamIds: [],
+    createdAt: "2026-08-11T10:00:00",
+    registrations: makeRegistrations("e9", [
+      { userId: "u5" },
+      { userId: "u8" },
+      { userId: "u9" },
+      { userId: "u14" },
+      { userId: "u19" },
+      { userId: "u20" },
+      { userId: "u24" },
+      { userId: "u29" },
+    ]),
+  },
+
+  // ── Recreativo Próxima semana ─────────────────────────────────────────────
+  {
+    id: "e10",
+    name: "Recreativo — Noite",
+    groupId: "g9",
+    date: nextWeek,
+    time: "20:00",
+    duration: 120,
+    location: "Clube Central — Court 2",
+    price: 4,
+    playersPerTeam: 6,
+    backupsPerTeam: 2,
+    teamCount: 2,
+    totalSlots: 16,
+    status: "open",
+    captainIds: ["u19"],
+    teamIds: [],
+    createdAt: "2026-08-12T08:00:00",
+    registrations: [],
+  },
+];
