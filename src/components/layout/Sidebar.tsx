@@ -1,59 +1,20 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
-  LayoutDashboard,
   Calendar,
-  Users,
-  Shield,
-  CreditCard,
-  Star,
-  MessageSquare,
-  BarChart2,
-  Settings,
   LogOut,
-  Trophy,
   ChevronLeft,
   Menu,
   CircleDot,
   Home,
-  History,
-  UserCircle,
-  Swords,
-  ClipboardList,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useAuth } from "@/context/AuthContext";
 import { Avatar } from "@/components/ui/Avatar";
 
-const adminLinks = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
-  { to: "/admin/events", label: "Eventos", icon: Calendar },
-  { to: "/admin/groups", label: "Grupos", icon: Shield },
-  { to: "/admin/players", label: "Jogadores", icon: Users },
-  { to: "/admin/teams", label: "Equipes", icon: Swords },
-  { to: "/admin/payments", label: "Pagamentos", icon: CreditCard },
-  { to: "/admin/ratings", label: "Ratings", icon: Star },
-  { to: "/admin/communication", label: "Comunicação", icon: MessageSquare },
-  { to: "/admin/reports", label: "Relatórios", icon: BarChart2 },
-  { to: "/admin/settings", label: "Configurações", icon: Settings },
-];
-
-const captainLinks = [
-  { to: "/captain", label: "Dashboard", icon: LayoutDashboard, end: true },
-  { to: "/captain/events", label: "Meus Jogos", icon: Calendar },
-  { to: "/captain/teams", label: "Equipes", icon: Swords },
-  { to: "/captain/players", label: "Jogadores", icon: Users },
-  { to: "/captain/ratings", label: "Avaliações", icon: Star },
-  { to: "/captain/communication", label: "Comunicação", icon: MessageSquare },
-];
-
 const playerLinks = [
   { to: "/player", label: "Início", icon: Home, end: true },
   { to: "/player/events", label: "Eventos", icon: Calendar },
-  { to: "/player/my-games", label: "Meus Jogos", icon: ClipboardList },
-  { to: "/player/rating", label: "Meu Rating", icon: Star },
-  { to: "/player/history", label: "Histórico", icon: History },
-  { to: "/player/profile", label: "Perfil", icon: UserCircle },
 ];
 
 export function Sidebar({
@@ -63,15 +24,10 @@ export function Sidebar({
   collapsed: boolean;
   onToggle: () => void;
 }) {
-  const { user, role, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const links =
-    role === "admin"
-      ? adminLinks
-      : role === "captain"
-        ? captainLinks
-        : playerLinks;
+  const links = playerLinks;
 
   const handleLogout = () => {
     logout();
@@ -114,11 +70,7 @@ export function Sidebar({
               {user.name}
             </p>
             <p className="text-xs text-slate-400 capitalize">
-              {role === "admin"
-                ? "Admin Geral"
-                : role === "captain"
-                  ? "Capitão"
-                  : "Jogador"}
+              Jogador
             </p>
           </div>
         </div>

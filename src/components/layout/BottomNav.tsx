@@ -1,38 +1,14 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import {
-  Home,
-  Calendar,
-  ClipboardList,
-  Star,
-  History,
-  LayoutDashboard,
-  Swords,
-  Users,
-  MessageSquare,
-} from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { Home, Calendar } from "lucide-react";
 import { clsx } from "clsx";
-import { useAuth } from "@/context/AuthContext";
 
 const playerTabs = [
   { to: "/player", icon: Home, label: "Início", end: true },
   { to: "/player/events", icon: Calendar, label: "Eventos" },
-  { to: "/player/my-games", icon: ClipboardList, label: "Meus Jogos" },
-  { to: "/player/rating", icon: Star, label: "Rating" },
-  { to: "/player/history", icon: History, label: "Histórico" },
-];
-
-const captainTabs = [
-  { to: "/captain", icon: LayoutDashboard, label: "Dashboard", end: true },
-  { to: "/captain/events", icon: Calendar, label: "Jogos" },
-  { to: "/captain/teams", icon: Swords, label: "Equipes" },
-  { to: "/captain/players", icon: Users, label: "Jogadores" },
-  { to: "/captain/ratings", icon: Star, label: "Avaliações" },
 ];
 
 export function BottomNav() {
-  const { role } = useAuth();
-  const tabs =
-    role === "player" ? playerTabs : role === "captain" ? captainTabs : [];
+  const tabs = playerTabs;
   if (!tabs.length) return null;
 
   return (
