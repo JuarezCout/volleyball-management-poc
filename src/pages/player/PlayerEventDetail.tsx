@@ -125,19 +125,30 @@ export function PlayerEventDetail() {
           {/* Courts grid */}
           {event.courts.length > 0 && (
             <div className="mb-4 space-y-2">
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Quadras</p>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                Quadras
+              </p>
               <div className="grid grid-cols-2 gap-2">
                 {event.courts.map((court) => {
                   const isFull = court.filledCount >= court.capacity;
                   return (
-                    <div key={court.id}
-                      className={`rounded-xl p-3 border text-center ${isFull ? "border-emerald-200 bg-emerald-50" : "border-slate-200 bg-slate-50"}`}>
-                      <p className="text-xs font-semibold text-slate-600">{court.name}</p>
+                    <div
+                      key={court.id}
+                      className={`rounded-xl p-3 border text-center ${isFull ? "border-emerald-200 bg-emerald-50" : "border-slate-200 bg-slate-50"}`}
+                    >
+                      <p className="text-xs font-semibold text-slate-600">
+                        {court.name}
+                      </p>
                       <p className="text-lg font-bold text-slate-800 mt-1">
                         {court.filledCount}
-                        <span className="text-sm font-normal text-slate-400"> / {court.capacity}</span>
+                        <span className="text-sm font-normal text-slate-400">
+                          {" "}
+                          / {court.capacity}
+                        </span>
                       </p>
-                      <span className={`text-xs font-medium ${isFull ? "text-emerald-600" : "text-blue-600"}`}>
+                      <span
+                        className={`text-xs font-medium ${isFull ? "text-emerald-600" : "text-blue-600"}`}
+                      >
                         {isFull ? "Lotada" : "Aberta"}
                       </span>
                     </div>
@@ -152,12 +163,17 @@ export function PlayerEventDetail() {
             <div className="mb-4 bg-red-50 border border-red-200 rounded-xl p-3 flex items-center gap-3">
               <Zap size={18} className="text-red-500 shrink-0" />
               <div className="flex-1">
-                <p className="text-sm font-semibold text-red-700">🚨 1 vaga de última hora!</p>
-                <p className="text-xs text-red-500 mt-0.5">Disponível agora. Pague para confirmar.</p>
+                <p className="text-sm font-semibold text-red-700">
+                  🚨 1 vaga de última hora!
+                </p>
+                <p className="text-xs text-red-500 mt-0.5">
+                  Disponível agora. Pague para confirmar.
+                </p>
               </div>
               <button
                 onClick={() => setRegOpen(true)}
-                className="text-xs font-bold text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-lg shrink-0">
+                className="text-xs font-bold text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-lg shrink-0"
+              >
                 Garantir vaga
               </button>
             </div>

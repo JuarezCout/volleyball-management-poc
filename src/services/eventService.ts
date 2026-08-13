@@ -61,7 +61,10 @@ export const eventService = {
   },
 
   create(
-    data: Omit<Event, "id" | "createdAt" | "registrations" | "teamIds" | "courts" | "timeline">,
+    data: Omit<
+      Event,
+      "id" | "createdAt" | "registrations" | "teamIds" | "courts" | "timeline"
+    >,
   ): Event {
     const newEvent: Event = {
       ...data,
