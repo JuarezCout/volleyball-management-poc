@@ -39,14 +39,38 @@ export interface Group {
   coverColor: string;
 }
 
+// ─── Court ───────────────────────────────────────────────────────────────────
+export interface Court {
+  id: string;
+  eventId: string;
+  name: string;
+  capacity: number; // total players (both teams)
+  filledCount: number;
+  teamAId?: string;
+  teamBId?: string;
+  status: "active" | "full" | "closed";
+  openedAt?: string;
+}
+
+// ─── Event Timeline ───────────────────────────────────────────────────────────
+export interface TimelineEntry {
+  id: string;
+  time: string;
+  label: string;
+  type: "system" | "player" | "admin" | "payment" | "court";
+  actor?: string;
+}
+
 // ─── Event ───────────────────────────────────────────────────────────────────
 export type EventStatus =
   | "draft"
+  | "published"
   | "open"
   | "full"
   | "in_progress"
   | "finished"
-  | "cancelled";
+  | "cancelled"
+  | "rated";
 
 export interface Event {
   id: string;
@@ -65,6 +89,9 @@ export interface Event {
   captainIds: string[];
   registrations: Registration[];
   teamIds: string[];
+  courts: Court[];
+  timeline: TimelineEntry[];
+  hasLastMinuteSpot?: boolean;
   createdAt: string;
 }
 

@@ -1,4 +1,4 @@
-import type { Event, Registration } from "@/types";
+import type { Event, Registration, Court, TimelineEntry } from "@/types";
 
 // Today = 2026-08-12
 const today = "2026-08-12";
@@ -58,7 +58,7 @@ const makeRegistrations = (
 };
 
 export const mockEvents: Event[] = [
-  // ── Main demo event: Terça 20:00 ──────────────────────────────────────────
+  // ── Main demo event: Terça 20:00 (3-court showcase) ───────────────────────
   {
     id: "e1",
     name: "Terça-feira — 20:00",
@@ -66,15 +66,123 @@ export const mockEvents: Event[] = [
     date: today,
     time: "20:00",
     duration: 120,
-    location: "Clube Central — Court 1",
+    location: "Clube Central",
     price: 8,
     playersPerTeam: 6,
     backupsPerTeam: 2,
     teamCount: 2,
-    totalSlots: 16,
+    totalSlots: 36,
     status: "open",
+    hasLastMinuteSpot: true,
     captainIds: ["u1"],
     teamIds: ["t1", "t2"],
+    courts: [
+      {
+        id: "c1-e1",
+        eventId: "e1",
+        name: "Quadra 1",
+        capacity: 12,
+        filledCount: 12,
+        teamAId: "t1",
+        teamBId: "t2",
+        status: "full",
+        openedAt: "2026-08-08T09:00:00",
+      },
+      {
+        id: "c2-e1",
+        eventId: "e1",
+        name: "Quadra 2",
+        capacity: 12,
+        filledCount: 12,
+        status: "full",
+        openedAt: "2026-08-12T18:31:00",
+      },
+      {
+        id: "c3-e1",
+        eventId: "e1",
+        name: "Quadra 3",
+        capacity: 12,
+        filledCount: 7,
+        status: "active",
+        openedAt: "2026-08-12T19:45:00",
+      },
+    ],
+    timeline: [
+      { id: "tl1", time: "09:00", label: "Evento publicado", type: "system" },
+      {
+        id: "tl2",
+        time: "09:05",
+        label: "João Silva inscreveu-se",
+        type: "player",
+        actor: "João Silva",
+      },
+      {
+        id: "tl3",
+        time: "09:07",
+        label: "Pagamento confirmado — João Silva",
+        type: "payment",
+        actor: "João Silva",
+      },
+      {
+        id: "tl4",
+        time: "09:12",
+        label: "Carlos Oliveira inscreveu-se",
+        type: "player",
+        actor: "Carlos Oliveira",
+      },
+      {
+        id: "tl5",
+        time: "10:30",
+        label: "12 inscrições confirmadas — Quadra 1 lotada",
+        type: "court",
+      },
+      {
+        id: "tl6",
+        time: "10:32",
+        label: "Quadra 2 aberta por Admin",
+        type: "court",
+        actor: "Admin",
+      },
+      {
+        id: "tl7",
+        time: "11:48",
+        label: "24 inscrições confirmadas — Quadra 2 lotada",
+        type: "court",
+      },
+      {
+        id: "tl8",
+        time: "14:20",
+        label: "Maria Costa cancelou inscrição",
+        type: "player",
+        actor: "Maria Costa",
+      },
+      {
+        id: "tl9",
+        time: "14:21",
+        label: "1 vaga disponível — backup notificado",
+        type: "system",
+      },
+      {
+        id: "tl10",
+        time: "14:35",
+        label: "Backup promovido para confirmado",
+        type: "system",
+      },
+      {
+        id: "tl11",
+        time: "19:45",
+        label: "Quadra 3 aberta por Admin",
+        type: "court",
+        actor: "Admin",
+      },
+      {
+        id: "tl12",
+        time: "19:50",
+        label: "Vaga de última hora aberta",
+        type: "system",
+        actor: "Admin",
+      },
+    ],
     createdAt: "2026-08-08T09:00:00",
     registrations: makeRegistrations(
       "e1",
@@ -89,8 +197,26 @@ export const mockEvents: Event[] = [
         { userId: "u15", teamId: "t2" },
         { userId: "u17", teamId: "t2" },
         { userId: "u19", teamId: "t2" },
+        { userId: "u6" },
+        { userId: "u8" },
+        { userId: "u10" },
+        { userId: "u12" },
+        { userId: "u14" },
+        { userId: "u16" },
+        { userId: "u18" },
+        { userId: "u20" },
+        { userId: "u22" },
+        { userId: "u24" },
+        { userId: "u26" },
+        { userId: "u28" },
+        { userId: "u30" },
       ],
-      [{ userId: "u5" }, { userId: "u23" }, { userId: "u27" }],
+      [
+        { userId: "u5" },
+        { userId: "u23" },
+        { userId: "u27" },
+        { userId: "u31" },
+      ],
       [
         { userId: "u7", teamId: "t1" },
         { userId: "u21", teamId: "t1" },
@@ -117,6 +243,8 @@ export const mockEvents: Event[] = [
     status: "open",
     captainIds: ["u17"],
     teamIds: ["t3", "t4"],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-08T09:00:00",
     registrations: makeRegistrations("e2", [
       { userId: "u17", teamId: "t3" },
@@ -147,6 +275,8 @@ export const mockEvents: Event[] = [
     status: "full",
     captainIds: ["u10"],
     teamIds: ["t5", "t6"],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-07T10:00:00",
     registrations: makeRegistrations(
       "e3",
@@ -189,6 +319,8 @@ export const mockEvents: Event[] = [
     status: "open",
     captainIds: ["u12"],
     teamIds: [],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-09T10:00:00",
     registrations: makeRegistrations("e4", [
       { userId: "u12" },
@@ -222,6 +354,8 @@ export const mockEvents: Event[] = [
     status: "open",
     captainIds: ["u13"],
     teamIds: [],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-10T11:00:00",
     registrations: makeRegistrations("e5", [
       { userId: "u13" },
@@ -248,6 +382,8 @@ export const mockEvents: Event[] = [
     status: "open",
     captainIds: ["u8"],
     teamIds: [],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-10T12:00:00",
     registrations: makeRegistrations("e6", [
       { userId: "u3" },
@@ -280,6 +416,8 @@ export const mockEvents: Event[] = [
     status: "open",
     captainIds: ["u12"],
     teamIds: [],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-10T13:00:00",
     registrations: makeRegistrations("e7", [
       { userId: "u6" },
@@ -307,6 +445,8 @@ export const mockEvents: Event[] = [
     status: "open",
     captainIds: ["u13"],
     teamIds: [],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-11T09:00:00",
     registrations: makeRegistrations("e8", [
       { userId: "u13" },
@@ -334,6 +474,8 @@ export const mockEvents: Event[] = [
     status: "open",
     captainIds: ["u9"],
     teamIds: [],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-11T10:00:00",
     registrations: makeRegistrations("e9", [
       { userId: "u5" },
@@ -364,6 +506,8 @@ export const mockEvents: Event[] = [
     status: "open",
     captainIds: ["u19"],
     teamIds: [],
+    courts: [],
+    timeline: [],
     createdAt: "2026-08-12T08:00:00",
     registrations: [],
   },
