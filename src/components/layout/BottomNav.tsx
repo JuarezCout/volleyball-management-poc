@@ -1,14 +1,13 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   Home,
   Calendar,
-  ClipboardList,
+  Vote,
   Star,
-  History,
+  MessageCircle,
   LayoutDashboard,
   Swords,
   Users,
-  MessageSquare,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useAuth } from "@/context/AuthContext";
@@ -16,9 +15,9 @@ import { useAuth } from "@/context/AuthContext";
 const playerTabs = [
   { to: "/player", icon: Home, label: "Início", end: true },
   { to: "/player/events", icon: Calendar, label: "Eventos" },
-  { to: "/player/my-games", icon: ClipboardList, label: "Meus Jogos" },
+  { to: "/player/polls", icon: Vote, label: "Votações" },
   { to: "/player/rating", icon: Star, label: "Rating" },
-  { to: "/player/history", icon: History, label: "Histórico" },
+  { to: "/player/feedback", icon: MessageCircle, label: "Feedback" },
 ];
 
 const captainTabs = [

@@ -11,6 +11,8 @@ import { AdminPayments } from "@/pages/admin/AdminPayments";
 import { AdminRatings } from "@/pages/admin/AdminRatings";
 import { AdminCommunication } from "@/pages/admin/AdminCommunication";
 import { AdminSettings } from "@/pages/admin/AdminSettings";
+import { AdminPolls } from "@/pages/admin/AdminPolls";
+import { AdminFeedbacks } from "@/pages/admin/AdminFeedbacks";
 // Captain pages
 import { CaptainDashboard } from "@/pages/captain/CaptainDashboard";
 import { CaptainEvents } from "@/pages/captain/CaptainEvents";
@@ -23,6 +25,8 @@ import { PlayerMyGames } from "@/pages/player/PlayerMyGames";
 import { PlayerRating } from "@/pages/player/PlayerRating";
 import { PlayerHistory } from "@/pages/player/PlayerHistory";
 import { PlayerProfile } from "@/pages/player/PlayerProfile";
+import { PlayerPolls } from "@/pages/player/PlayerPolls";
+import { PlayerFeedback } from "@/pages/player/PlayerFeedback";
 
 function RequireAuth({
   children,
@@ -126,6 +130,22 @@ function AppRoutes() {
         element={
           <RequireAuth role="admin">
             <AdminCommunication />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/admin/polls"
+        element={
+          <RequireAuth role="admin">
+            <AdminPolls />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/admin/feedbacks"
+        element={
+          <RequireAuth role="admin">
+            <AdminFeedbacks />
           </RequireAuth>
         }
       />
@@ -258,6 +278,22 @@ function AppRoutes() {
         element={
           <RequireAuth role="player">
             <PlayerProfile />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/player/polls"
+        element={
+          <RequireAuth role="player">
+            <PlayerPolls />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/player/feedback"
+        element={
+          <RequireAuth role="player">
+            <PlayerFeedback />
           </RequireAuth>
         }
       />

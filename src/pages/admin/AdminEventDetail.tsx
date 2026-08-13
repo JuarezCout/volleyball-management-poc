@@ -30,6 +30,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { TeamBuilder } from "@/components/teams/TeamBuilder";
 import { TelegramPreview } from "@/components/messaging/TelegramPreview";
 import { Tabs } from "@/components/ui/Tabs";
+import { EventLifecycle } from "@/components/events/EventLifecycle";
 import { eventService } from "@/services/eventService";
 import { teamService } from "@/services/teamService";
 import { playerService } from "@/services/playerService";
@@ -155,6 +156,12 @@ export function AdminEventDetail() {
           </div>
         </Card>
 
+        {/* ── Event lifecycle ──────────────────────────────────────────────── */}
+        <Card>
+          <p className="text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wide">Ciclo de vida do evento</p>
+          <EventLifecycle status={event.status} />
+        </Card>
+
         {/* ── Last-minute spot banner ─────────────────────────────────────── */}
         {event.hasLastMinuteSpot && !lastMinuteDismissed && (
           <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3">
@@ -272,6 +279,21 @@ export function AdminEventDetail() {
             </Button>
             <Button size="sm" variant="outline">
               <Bell size={14} /> Notificação
+            </Button>
+            <Button size="sm" variant="outline"
+              onClick={() => {
+                if (activeCourts.length > 0) {
+                  setLocalCourts(activeCourts.map((c, i) =>
+                    i === activeCourts.length - 1 ? { ...c, status: "closed" as const } : c,
+                  ));
+                }
+              }}>
+              Fechar quadra
+            </Button>
+            <Button size="sm" variant="outline"
+              onClick={() => eventService.updateStatus(event.id, "cancelled")}
+              className="text-red-600 border-red-200 hover:bg-red-50">
+              <XCircle size={14} /> Cancelar evento
             </Button>
           </div>
         </Card>

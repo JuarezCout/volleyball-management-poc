@@ -9,3 +9,5 @@ export {
   groupStats,
 } from "./ratings";
 export { mockPayments } from "./payments";
+export { mockPolls } from "./polls";
+export { mockFeedbacks } from "./feedbacks";

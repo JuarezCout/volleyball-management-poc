@@ -1,23 +1,25 @@
 // ─── User & Auth ─────────────────────────────────────────────────────────────
 export type UserRole = "admin" | "captain" | "player";
+export type PlayerPosition = "libero" | "setter" | "outside" | "middle" | "opposite" | "universal";
+export type Gender = "male" | "female" | "non_binary" | "prefer_not_to_say";
 
 export interface User {
   id: string;
   name: string;
+  preferredName?: string;
   email: string;
   avatar?: string;
   role: UserRole;
   groupIds: string[];
   joinedAt: string;
-  position?:
-    | "libero"
-    | "setter"
-    | "outside"
-    | "middle"
-    | "opposite"
-    | "universal";
+  gender?: Gender;
+  birthday?: string;
+  positions?: PlayerPosition[];
   phone?: string;
+  /** Denormalized aggregate – actual history is in RatingEntry[] */
   rating?: number;
+  waiverAccepted?: boolean;
+  waiverAcceptedAt?: string;
 }
 
 // ─── Group ───────────────────────────────────────────────────────────────────
@@ -92,7 +94,33 @@ export interface Event {
   courts: Court[];
   timeline: TimelineEntry[];
   hasLastMinuteSpot?: boolean;
+  gameFormat?: string;
+  instructions?: string;
   createdAt: string;
+}
+
+// ─── Poll ─────────────────────────────────────────────────────────────────────
+export interface PollOption {
+  id: string;
+  date: string;
+  time: string;
+  votes: string[]; // userId[]
+}
+
+export type PollStatus = "open" | "closed" | "event_created";
+
+export interface Poll {
+  id: string;
+  groupId: string;
+  title: string;
+  description?: string;
+  options: PollOption[];
+  status: PollStatus;
+  createdBy: string;
+  createdAt: string;
+  closedAt?: string;
+  winningOptionId?: string;
+  eventId?: string;
 }
 
 // ─── Registration ─────────────────────────────────────────────────────────────
@@ -166,4 +194,24 @@ export interface TelegramChannel {
   status: "connected" | "disconnected" | "pending";
   lastMessage?: string;
   lastMessageAt?: string;
+}
+
+// ─── Feedback ─────────────────────────────────────────────────────────────────
+export type FeedbackCategory =
+  | "game_organization"
+  | "sportsmanship"
+  | "facilities"
+  | "scheduling"
+  | "suggestion"
+  | "other";
+
+export interface Feedback {
+  id: string;
+  userId: string;
+  eventId?: string;
+  groupId?: string;
+  category: FeedbackCategory;
+  message: string;
+  isPrivate: boolean;
+  createdAt: string;
 }

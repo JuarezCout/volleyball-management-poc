@@ -11,7 +11,6 @@ import {
   BarChart2,
   Settings,
   LogOut,
-  Trophy,
   ChevronLeft,
   Menu,
   CircleDot,
@@ -20,6 +19,8 @@ import {
   UserCircle,
   Swords,
   ClipboardList,
+  Vote,
+  MessageCircle,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useAuth } from "@/context/AuthContext";
@@ -28,13 +29,13 @@ import { Avatar } from "@/components/ui/Avatar";
 const adminLinks = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/admin/events", label: "Eventos", icon: Calendar },
+  { to: "/admin/polls", label: "Enquetes", icon: Vote },
   { to: "/admin/groups", label: "Grupos", icon: Shield },
   { to: "/admin/players", label: "Jogadores", icon: Users },
-  { to: "/admin/teams", label: "Equipes", icon: Swords },
   { to: "/admin/payments", label: "Pagamentos", icon: CreditCard },
   { to: "/admin/ratings", label: "Ratings", icon: Star },
+  { to: "/admin/feedbacks", label: "Feedbacks", icon: MessageCircle },
   { to: "/admin/communication", label: "Comunicação", icon: MessageSquare },
-  { to: "/admin/reports", label: "Relatórios", icon: BarChart2 },
   { to: "/admin/settings", label: "Configurações", icon: Settings },
 ];
 
@@ -50,9 +51,11 @@ const captainLinks = [
 const playerLinks = [
   { to: "/player", label: "Início", icon: Home, end: true },
   { to: "/player/events", label: "Eventos", icon: Calendar },
+  { to: "/player/polls", label: "Votações", icon: Vote },
   { to: "/player/my-games", label: "Meus Jogos", icon: ClipboardList },
   { to: "/player/rating", label: "Meu Rating", icon: Star },
   { to: "/player/history", label: "Histórico", icon: History },
+  { to: "/player/feedback", label: "Feedback", icon: MessageCircle },
   { to: "/player/profile", label: "Perfil", icon: UserCircle },
 ];
 

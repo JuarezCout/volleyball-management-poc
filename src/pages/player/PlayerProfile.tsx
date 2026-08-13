@@ -30,9 +30,9 @@ export function PlayerProfile() {
         <Card className="text-center">
           <Avatar name={user.name} size="xl" className="mx-auto mb-4" />
           <h2 className="text-xl font-bold text-slate-800">{user.name}</h2>
-          {user.position && (
+          {user.positions && user.positions.length > 0 && (
             <p className="text-slate-500 text-sm mt-1">
-              {POSITION_LABELS[user.position]}
+              {POSITION_LABELS[user.positions[0]]}
             </p>
           )}
           <div className="flex justify-center gap-2 mt-3 flex-wrap">

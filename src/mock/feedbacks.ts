@@ -1,0 +1,51 @@
+import type { Feedback } from "@/types";
+
+export const mockFeedbacks: Feedback[] = [
+  {
+    id: "fb1",
+    userId: "u2",
+    eventId: "e3",
+    groupId: "g2",
+    category: "game_organization",
+    message: "Ótima organização esta semana. As equipas estavam muito equilibradas.",
+    isPrivate: false,
+    createdAt: "2026-08-12T23:00:00",
+  },
+  {
+    id: "fb2",
+    userId: "u3",
+    eventId: "e3",
+    groupId: "g2",
+    category: "scheduling",
+    message: "O horário das 18h é perfeito. Consigo sair a tempo depois do trabalho.",
+    isPrivate: false,
+    createdAt: "2026-08-12T22:30:00",
+  },
+  {
+    id: "fb3",
+    userId: "u4",
+    eventId: "e1",
+    groupId: "g2",
+    category: "facilities",
+    message: "O estacionamento estava muito cheio. Demorei 15 minutos a encontrar lugar.",
+    isPrivate: true,
+    createdAt: "2026-08-12T22:45:00",
+  },
+  {
+    id: "fb4",
+    userId: "u9",
+    eventId: "e1",
+    category: "sportsmanship",
+    message: "Excelente ambiente. Todos muito respeitosos e encorajadores.",
+    isPrivate: false,
+    createdAt: "2026-08-12T23:15:00",
+  },
+  {
+    id: "fb5",
+    userId: "u11",
+    category: "suggestion",
+    message: "Seria fixe ter uma área de aquecimento antes do jogo começar.",
+    isPrivate: false,
+    createdAt: "2026-08-11T20:00:00",
+  },
+];

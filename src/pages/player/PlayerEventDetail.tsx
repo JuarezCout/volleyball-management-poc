@@ -22,6 +22,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { EventRegistrationModal } from "@/components/events/EventRegistrationModal";
+import { EventLifecycle } from "@/components/events/EventLifecycle";
 import { eventService } from "@/services/eventService";
 import { teamService } from "@/services/teamService";
 import { playerService } from "@/services/playerService";
@@ -103,6 +104,11 @@ export function PlayerEventDetail() {
               label="Vagas"
               value={`${confirmed.length}/${total}`}
             />
+          </div>
+
+          {/* Event lifecycle */}
+          <div className="mb-4 overflow-x-auto">
+            <EventLifecycle status={event.status} />
           </div>
 
           {/* Occupancy bar */}

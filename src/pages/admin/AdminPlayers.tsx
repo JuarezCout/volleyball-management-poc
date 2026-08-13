@@ -113,7 +113,7 @@ export function AdminPlayers() {
                       </td>
                       <td className="px-4 py-3 hidden sm:table-cell">
                         <span className="text-xs text-slate-500">
-                          {POSITION_LABELS[player.position ?? ""] ?? "-"}
+                          {POSITION_LABELS[player.positions?.[0] ?? ""] ?? "-"}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-center">
